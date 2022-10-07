@@ -4,9 +4,9 @@ This repository contains PyTorch code to compute fast p-Wasserstein distances be
 This implementation uses **linear memory overhead** and is **stable in float32, runs on the GPU, and fully differentiable**.
 
 This shows an example of the correspondences between two shapes found by computing the Sinkhorn distance on 200k input points:
-<center>
-<img src="data/teaser.png" style="width:75%">
-</center>
+<p align="center">
+  <img src="data/teaser.png" style="width:55%;">
+</p>
 
 ## How to use:
 1. Copy the `sinkhorn.py` file in this repository to your PyTorch codebase.
