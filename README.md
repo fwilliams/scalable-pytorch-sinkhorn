@@ -1,4 +1,4 @@
-# Fast, Memory-Efficient Approximate Wasserstein Distance
+# Fast, Memory-Efficient Approximate Wasserstein Distances
 This repository contains PyTorch code to compute fast p-Wasserstein distances between d-dimensional point clouds using the [Sinkhorn Algorithm](https://arxiv.org/abs/1306.0895).
 
 This implementation uses **linear memory overhead** and is **stable in float32, runs on the GPU, and fully differentiable**.
@@ -13,7 +13,7 @@ This shows an example of the correspondences between two shapes found by computi
 2. `pip install pykeops tqdm`
 3. Import `from sinkhorn import sinkhorn` and use the `sinkhorn` function!
 
-### Example Code
+### Running the example code
 Look at [example_basic.py](example_basic.py) for a basic example and [example_optimize.py](example_optimize.py) for an example of how to use Sinkhorn in your optimization
 
 **NOTE:** To run the examples, you need to first run
