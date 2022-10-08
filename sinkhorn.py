@@ -90,9 +90,9 @@ def sinkhorn(x: torch.Tensor, y: torch.Tensor, p: float = 2,
 
     # Weights [n,] and [m,]
     if w_x is None and w_y is None:
-        w_x = torch.ones(x.shape[0]).to(x)
-        w_y = torch.ones(y.shape[0]).to(x)
-        w_y = torch.ones(y.shape[0]).to(x) * (w_x.shape[0] / w_y.shape[0])
+        w_x = torch.ones(x.shape[0]).to(x) / x.shape[0]
+        w_y = torch.ones(y.shape[0]).to(x) / y.shape[0]
+        w_y *= (w_x.shape[0] / w_y.shape[0])
 
     sum_w_x = w_x.sum().item()
     sum_w_y = w_y.sum().item()
@@ -121,18 +121,10 @@ def sinkhorn(x: torch.Tensor, y: torch.Tensor, p: float = 2,
         v_prev = v
 
         summand_u = (-M_ij + v_j) / eps
-        # max_su = summand_u.max(dim=1).squeeze()
-        # max_su_i = keops.Vi(max_su.unsqueeze(-1))
-        # sum_u = torch.log((summand_u - max_su_i).exp().sum(dim=1).squeeze()) + max_su
-        # u = eps * (log_a - sum_u)  # [m]
         u = eps * (log_a - summand_u.logsumexp(dim=1).squeeze())
         u_i = keops.Vi(u.unsqueeze(-1))
 
         summand_v = (-M_ij + u_i) / eps
-        # max_sv = summand_v.max(dim=0).squeeze()
-        # max_sv_j = keops.Vj(max_sv.unsqueeze(-1))
-        # sum_v = torch.log((summand_v - max_sv_j).exp().sum(dim=0).squeeze()) + max_sv
-        # v = eps * (log_b - sum_v)  # [m]
         v = eps * (log_b - summand_v.logsumexp(dim=0).squeeze())
         v_j = keops.Vj(v.unsqueeze(-1))
 
